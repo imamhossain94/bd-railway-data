@@ -7,578 +7,130 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            300: '#6ee7b7',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --primary: #059669; /* Emerald 600 */
-            --primary-light: #10b981; /* Emerald 500 */
-            --primary-dark: #047857; /* Emerald 700 */
-            --bg-color: #f8fafc; /* Slate 50 */
-            --card-bg: #ffffff;
-            --text-main: #0f172a; /* Slate 900 */
-            --text-muted: #64748b; /* Slate 500 */
-            --border-color: #e2e8f0; /* Slate 200 */
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-            --radius-md: 0.5rem;
-            --radius-lg: 1rem;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        header {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
-            color: white;
-            padding: 4rem 2rem;
-            text-align: center;
-            box-shadow: var(--shadow-md);
-            position: relative;
-            overflow: hidden;
-        }
-
-        header::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at top right, rgba(255,255,255,0.1) 0%, transparent 60%);
-            pointer-events: none;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            letter-spacing: -0.025em;
-        }
-
-        .header-subtitle {
-            font-size: 1.125rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
-            font-weight: 300;
-        }
-
-        main {
-            max-width: 1200px;
-            margin: -2rem auto 4rem;
-            padding: 0 1.5rem;
-            position: relative;
-            z-index: 10;
-        }
-
-        .stats-container {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .stat-card {
-            background: var(--card-bg);
-            padding: 1.5rem 2rem;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
-            text-align: center;
-            min-width: 200px;
-            border: 1px solid rgba(255,255,255,0.5);
-            backdrop-filter: blur(10px);
-            transform: translateY(0);
-            transition: var(--transition);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            line-height: 1;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-weight: 600;
-        }
-
-        .search-bar {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto 3rem;
-            position: relative;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 1.25rem 1.5rem 1.25rem 3rem;
-            font-size: 1.125rem;
-            border: 2px solid transparent;
-            border-radius: 9999px;
-            background: var(--card-bg);
-            box-shadow: var(--shadow-md);
-            transition: var(--transition);
-            font-family: inherit;
-            color: var(--text-main);
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: var(--primary-light);
-            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 1.25rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            width: 1.25rem;
-            height: 1.25rem;
-        }
-
-        .train-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .train-card {
-            background: var(--card-bg);
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .train-card:hover {
-            box-shadow: var(--shadow-lg);
-            transform: translateY(-4px);
-            border-color: var(--primary-light);
-        }
-
-        .train-header {
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            background: linear-gradient(to right, rgba(16, 185, 129, 0.05), transparent);
-            position: relative;
-        }
-        
-        .train-badge {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            background: var(--primary);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-        }
-
-        .train-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .train-code {
-            color: var(--text-muted);
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-
-        .train-body {
-            padding: 1.5rem;
-            flex-grow: 1;
-        }
-
-        .route-info {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-
-        .route-info::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 20%;
-            right: 20%;
-            height: 2px;
-            background: repeating-linear-gradient(90deg, var(--border-color) 0, var(--border-color) 4px, transparent 4px, transparent 8px);
-            z-index: 1;
-        }
-
-        .station {
-            text-align: center;
-            background: var(--card-bg);
-            z-index: 2;
-            padding: 0 0.5rem;
-        }
-
-        .station-time {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .station-name {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-            font-weight: 500;
-            margin-top: 0.25rem;
-        }
-
-        .train-meta {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px dashed var(--border-color);
-        }
-
-        .meta-item {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .meta-label {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .meta-value {
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--text-main);
-        }
-        
-        .classes-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.25rem;
-            margin-top: 0.5rem;
-        }
-        
-        .class-pill {
-            font-size: 0.7rem;
-            background: var(--bg-color);
-            border: 1px solid var(--border-color);
-            padding: 0.1rem 0.5rem;
-            border-radius: 4px;
-            color: var(--text-muted);
-        }
-
-        /* Modal Styles */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(15, 23, 42, 0.5);
-            backdrop-filter: blur(4px);
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: var(--transition);
-            padding: 1rem;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .modal-content {
-            background: var(--card-bg);
-            width: 100%;
-            max-width: 800px;
-            max-height: 90vh;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
-            transform: scale(0.95);
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .modal-overlay.active .modal-content {
-            transform: scale(1);
-        }
-
-        .modal-header {
-            padding: 1.5rem 2rem;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--bg-color);
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: var(--text-muted);
-            padding: 0.5rem;
-            border-radius: 50%;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .close-btn:hover {
-            background: var(--border-color);
-            color: var(--text-main);
-        }
-
-        .modal-body {
-            padding: 2rem;
-            overflow-y: auto;
-        }
-
-        .stoppages-timeline {
-            position: relative;
-            padding-left: 2rem;
-        }
-
-        .stoppages-timeline::before {
-            content: '';
-            position: absolute;
-            left: 0.5rem;
-            top: 0.5rem;
-            bottom: 0.5rem;
-            width: 2px;
-            background: var(--border-color);
-        }
-
-        .stop-item {
-            position: relative;
-            margin-bottom: 1.5rem;
-            background: var(--bg-color);
-            padding: 1rem;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-color);
-        }
-
-        .stop-item::before {
-            content: '';
-            position: absolute;
-            left: -1.85rem;
-            top: 1.25rem;
-            width: 0.75rem;
-            height: 0.75rem;
-            border-radius: 50%;
-            background: white;
-            border: 2px solid var(--primary);
-        }
-
-        .stop-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .stop-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-        }
-
-        .stop-name {
-            font-weight: 600;
-            font-size: 1.125rem;
-        }
-
-        .stop-times {
-            display: flex;
-            gap: 1rem;
-            color: var(--text-muted);
-            font-size: 0.875rem;
-        }
-
-        .stop-meta {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .fares-table-container {
-            margin-top: 2rem;
-            overflow-x: auto;
-        }
-        
-        .fares-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.875rem;
-        }
-        
-        .fares-table th, .fares-table td {
-            padding: 0.75rem 1rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .fares-table th {
-            background: var(--bg-color);
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 0.05em;
-        }
-        
-        .fares-table tbody tr:hover {
-            background-color: var(--bg-color);
-        }
-
-        .loader {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 200px;
-            width: 100%;
-        }
-
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(16, 185, 129, 0.2);
-            border-radius: 50%;
-            border-top-color: var(--primary);
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        .hidden {
-            display: none !important;
-        }
-        
-        .no-results {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 4rem;
-            background: var(--card-bg);
-            border-radius: var(--radius-lg);
-            border: 1px dashed var(--border-color);
-            color: var(--text-muted);
-        }
+        /* Custom scrollbar for timeline and tables */
+        .custom-scrollbar::-webkit-scrollbar { height: 8px; width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f8fafc; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen">
 
-    <header>
-        <h1>Bangladesh Railway Data</h1>
-        <p class="header-subtitle">Open-source intercity train schedules, stoppages, and fares</p>
+    <!-- Header -->
+    <header class="bg-gradient-to-br from-brand-700 to-brand-500 text-white py-16 px-6 text-center shadow-lg relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.1)_0%,transparent_60%)] pointer-events-none"></div>
+        <div class="relative z-10">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight">Bangladesh Railway Data</h1>
+            <p class="text-lg md:text-xl opacity-90 max-w-2xl mx-auto font-light">Open-source intercity train schedules, stoppages, and fares</p>
+        </div>
     </header>
 
-    <main>
-        <div class="stats-container">
-            <div class="stat-card">
-                <div class="stat-value" id="stat-trains">-</div>
-                <div class="stat-label">Intercity Trains</div>
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20 pb-16">
+        
+        <!-- Stats Row -->
+        <div class="flex flex-wrap justify-center gap-6 mb-12">
+            <div class="bg-white/90 backdrop-blur border border-white/50 p-6 rounded-2xl shadow-xl text-center min-w-[200px] transform hover:-translate-y-1 transition duration-300">
+                <div class="text-4xl font-bold text-brand-600 mb-1" id="stat-trains">-</div>
+                <div class="text-sm text-slate-500 uppercase tracking-wider font-semibold">Intercity Trains</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-value" id="stat-stations">-</div>
-                <div class="stat-label">Stations</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">v2.0</div>
-                <div class="stat-label">Dataset Version</div>
+            <div class="bg-white/90 backdrop-blur border border-white/50 p-6 rounded-2xl shadow-xl text-center min-w-[200px] transform hover:-translate-y-1 transition duration-300">
+                <div class="text-4xl font-bold text-brand-600 mb-1" id="stat-stations">-</div>
+                <div class="text-sm text-slate-500 uppercase tracking-wider font-semibold">Stations</div>
             </div>
         </div>
 
-        <div class="search-bar">
-            <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-            <input type="text" id="searchInput" class="search-input" placeholder="Search trains by name, code, or station...">
+        <!-- Search Bar -->
+        <div class="max-w-2xl mx-auto mb-12 relative">
+            <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                <svg class="h-6 w-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </div>
+            <input type="text" id="searchInput" class="w-full pl-14 pr-6 py-4 text-lg border-2 border-transparent bg-white shadow-md rounded-full focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 transition duration-300 text-slate-800 placeholder-slate-400" placeholder="Search trains by name, code, or station...">
         </div>
 
-        <div id="loader" class="loader">
-            <div class="spinner"></div>
+        <!-- Initial Loader -->
+        <div id="loader" class="flex justify-center items-center h-48">
+            <div class="animate-spin rounded-full h-12 w-12 border-4 border-brand-500/20 border-t-brand-500"></div>
         </div>
 
-        <div id="trainGrid" class="train-grid hidden">
-            <!-- Train cards will be injected here -->
+        <!-- Train Grid -->
+        <div id="trainGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 hidden">
+            <!-- Cards injected via JS -->
         </div>
+
     </main>
 
-    <!-- Modal for Train Details -->
-    <div id="trainModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="modal-header">
+    <!-- Modal Overlay -->
+    <div id="trainModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white w-full max-w-4xl max-h-[90vh] rounded-2xl shadow-2xl flex flex-col transform scale-95 transition-transform duration-300" id="modalContent">
+            
+            <!-- Modal Header -->
+            <div class="px-6 py-5 border-b border-slate-200 flex justify-between items-center bg-slate-50 rounded-t-2xl">
                 <div>
-                    <h2 id="modalTitle" class="modal-title">Train Details</h2>
-                    <p id="modalSubtitle" style="color: var(--text-muted); font-size: 0.875rem; margin-top: 0.25rem;">Route Info</p>
+                    <h2 id="modalTitle" class="text-2xl font-bold text-slate-800">Train Details</h2>
+                    <p id="modalSubtitle" class="text-sm font-medium text-slate-500 mt-1">Route Info</p>
                 </div>
-                <button class="close-btn" id="closeModal">
-                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                <button id="closeModal" class="text-slate-400 hover:text-slate-700 hover:bg-slate-200 p-2 rounded-full transition duration-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
-            <div class="modal-body">
-                <h3 style="margin-bottom: 1rem; font-size: 1.125rem; font-weight: 600;">Stoppages & Schedule</h3>
-                <div id="modalTimeline" class="stoppages-timeline">
-                    <!-- Stoppages will be injected here -->
-                </div>
+
+            <!-- Modal Body -->
+            <div class="p-6 overflow-y-auto custom-scrollbar flex-1 bg-white rounded-b-2xl">
                 
-                <h3 style="margin-top: 2rem; margin-bottom: 1rem; font-size: 1.125rem; font-weight: 600;">Fare Information (BDT)</h3>
-                <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1rem;">Fares shown are from origin station.</p>
-                <div id="modalFares" class="fares-table-container">
-                    <!-- Fares table will be injected here -->
+                <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    Stoppages & Schedule
+                </h3>
+                
+                <!-- Timeline container -->
+                <div class="relative pl-6 ml-2 border-l-2 border-brand-200" id="modalTimeline">
+                    <!-- Timeline injected here -->
+                </div>
+
+                <h3 class="text-xl font-bold text-slate-800 mt-12 mb-2 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                    Fare Information (BDT)
+                </h3>
+                <p class="text-sm text-slate-500 mb-4 ml-7">Fares shown are calculated from the origin station.</p>
+                
+                <div class="overflow-x-auto custom-scrollbar rounded-xl border border-slate-200 ml-7 shadow-sm" id="modalFares">
+                    <!-- Table injected here -->
                 </div>
             </div>
+
         </div>
     </div>
 
+    <!-- Application Logic -->
     <script>
         let trainsData = [];
         let stationsMap = new Map();
 
+        // Helper to format seat classes nicely
         const formatClass = (cls) => {
             const map = {
                 'shovon': 'Shovon',
@@ -590,9 +142,10 @@
             return map[cls] || cls;
         };
 
+        // Main Initialization
         async function init() {
             try {
-                // Fetch data
+                // Fetch the static JSON data
                 const [trainsRes, stationsRes] = await Promise.all([
                     fetch('railway-data.json'),
                     fetch('railway-stations.json')
@@ -603,42 +156,45 @@
                 
                 trainsData = trainsJson.trains;
                 
-                // Build stations map
-                stationsJson.forEach(st => {
-                    stationsMap.set(st.code, st);
-                });
+                // Map stations by code for quick O(1) lookups
+                stationsJson.forEach(st => stationsMap.set(st.code, st));
 
-                // Update stats
+                // Update the statistic cards
                 document.getElementById('stat-trains').textContent = trainsData.length;
                 document.getElementById('stat-stations').textContent = stationsMap.size;
 
-                // Render grid
+                // Render the initial grid of all trains
                 renderGrid(trainsData);
                 
-                // Hide loader, show grid
+                // Hide loader and show the grid
                 document.getElementById('loader').classList.add('hidden');
                 document.getElementById('trainGrid').classList.remove('hidden');
 
-                // Setup search
+                // Search input event listener
                 document.getElementById('searchInput').addEventListener('input', handleSearch);
                 
-                // Setup modal close
-                document.getElementById('closeModal').addEventListener('click', closeModal);
-                document.getElementById('trainModal').addEventListener('click', (e) => {
-                    if (e.target === document.getElementById('trainModal')) closeModal();
-                });
+                // Modal close event listeners
+                const modal = document.getElementById('trainModal');
+                const modalContent = document.getElementById('modalContent');
                 
-                // Escape key to close modal
+                document.getElementById('closeModal').addEventListener('click', closeModal);
+                modal.addEventListener('click', (e) => {
+                    if (!modalContent.contains(e.target)) closeModal();
+                });
                 document.addEventListener('keydown', (e) => {
                     if (e.key === 'Escape') closeModal();
                 });
 
             } catch (error) {
                 console.error("Failed to load data:", error);
-                document.getElementById('loader').innerHTML = `<p style="color: red;">Failed to load data. Please ensure you are running a local server.</p>`;
+                document.getElementById('loader').innerHTML = 
+                    `<p class="text-red-500 font-medium bg-red-50 px-4 py-3 rounded-lg border border-red-200">
+                        Failed to load data. Please ensure you are running this page on a local web server (not directly from file://).
+                    </p>`;
             }
         }
 
+        // Handles the search filtering
         function handleSearch(e) {
             const query = e.target.value.toLowerCase();
             const filtered = trainsData.filter(t => 
@@ -650,137 +206,177 @@
             renderGrid(filtered);
         }
 
+        // Renders the main train cards
         function renderGrid(trains) {
             const grid = document.getElementById('trainGrid');
-            grid.innerHTML = '';
             
             if (trains.length === 0) {
-                grid.innerHTML = `<div class="no-results">
-                    <svg width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin: 0 auto 1rem; opacity: 0.5;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <h3>No trains found</h3>
-                    <p>Try adjusting your search terms</p>
+                grid.innerHTML = `
+                <div class="col-span-full text-center py-16 bg-white rounded-2xl border-2 border-dashed border-slate-200">
+                    <svg class="mx-auto h-12 w-12 text-slate-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <h3 class="text-lg font-semibold text-slate-900">No trains found</h3>
+                    <p class="text-slate-500 mt-1">Try adjusting your search terms</p>
                 </div>`;
                 return;
             }
 
-            trains.forEach((train, idx) => {
+            const html = trains.map((train, idx) => {
                 const totalStops = train.stoppages.length;
                 const distance = train.stoppages[totalStops - 1].distanceKm;
                 
-                const card = document.createElement('div');
-                card.className = 'train-card';
-                card.onclick = () => openModal(train);
+                // Map the classes to small pill UI elements
+                const classesHtml = train.classes.map(c => 
+                    `<span class="px-2 py-1 text-[10px] font-bold tracking-wide bg-slate-100 text-slate-600 rounded border border-slate-200">${formatClass(c)}</span>`
+                ).join('');
                 
-                const classesHtml = train.classes.map(c => `<span class="class-pill">${formatClass(c)}</span>`).join('');
+                // We stringify the train object so we can pass it directly to the onclick handler
+                const trainJson = JSON.stringify(train).replace(/"/g, '&quot;');
                 
-                card.innerHTML = `
-                    <div class="train-header">
-                        <div class="train-badge">${train.type}</div>
-                        <div class="train-title">${train.name.en} <span class="train-code">#${train.code}</span></div>
-                        <div class="classes-list">${classesHtml}</div>
-                    </div>
-                    <div class="train-body">
-                        <div class="route-info">
-                            <div class="station">
-                                <div class="station-time">${train.departureTime}</div>
-                                <div class="station-name">${train.origin.name.en}</div>
+                return `
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-xl hover:-translate-y-1 hover:border-brand-300 transition-all duration-300 cursor-pointer flex flex-col group" onclick="openModalWithData(this)" data-train="${trainJson}">
+                        
+                        <div class="p-6 border-b border-slate-100 bg-gradient-to-r from-brand-50/50 to-transparent relative">
+                            <span class="absolute top-6 right-6 bg-brand-100 text-brand-700 px-3 py-1 rounded-full text-xs font-bold tracking-wider group-hover:bg-brand-500 group-hover:text-white transition-colors duration-300">${train.type}</span>
+                            <div class="flex items-center gap-2 mb-2 pr-16">
+                                <h3 class="text-xl font-bold text-slate-800">${train.name.en}</h3>
                             </div>
-                            <div class="station">
-                                <div class="station-time">${train.arrivalTime}</div>
-                                <div class="station-name">${train.destination.name.en}</div>
+                            <div class="text-sm font-semibold text-slate-400 mb-3">Train #${train.code}</div>
+                            <div class="flex flex-wrap gap-1.5">${classesHtml}</div>
+                        </div>
+
+                        <div class="p-6 flex-grow flex flex-col">
+                            
+                            <!-- Visual Route Connection -->
+                            <div class="flex justify-between items-center mb-8 relative">
+                                <div class="absolute top-1/2 left-[25%] right-[25%] h-[2px] bg-[repeating-linear-gradient(90deg,var(--tw-colors-slate-200)_0,var(--tw-colors-slate-200)_6px,transparent_6px,transparent_12px)] -z-10"></div>
+                                
+                                <div class="text-center bg-white pr-3">
+                                    <div class="text-xl font-bold text-slate-800">${train.departureTime}</div>
+                                    <div class="text-sm font-medium text-slate-500 mt-1 max-w-[100px] truncate" title="${train.origin.name.en}">${train.origin.name.en}</div>
+                                </div>
+                                <div class="text-center bg-white pl-3">
+                                    <div class="text-xl font-bold text-slate-800">${train.arrivalTime}</div>
+                                    <div class="text-sm font-medium text-slate-500 mt-1 max-w-[100px] truncate" title="${train.destination.name.en}">${train.destination.name.en}</div>
+                                </div>
+                            </div>
+
+                            <!-- Footer Meta Stats -->
+                            <div class="grid grid-cols-2 gap-4 mt-auto pt-4 border-t border-dashed border-slate-200">
+                                <div>
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Distance</div>
+                                    <div class="text-sm font-medium text-slate-700">${distance} km</div>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Off Day</div>
+                                    <div class="text-sm font-medium text-slate-700">${train.offDay.en || 'None'}</div>
+                                </div>
                             </div>
                         </div>
-                        <div class="train-meta">
-                            <div class="meta-item">
-                                <span class="meta-label">Distance</span>
-                                <span class="meta-value">${distance} km</span>
+
+                    </div>
+                `;
+            }).join('');
+            
+            grid.innerHTML = html;
+        }
+
+        // Expose openModal to window so onclick can call it
+        window.openModalWithData = function(element) {
+            const train = JSON.parse(element.getAttribute('data-train'));
+            
+            document.getElementById('modalTitle').textContent = `${train.name.en} (#${train.code})`;
+            document.getElementById('modalSubtitle').textContent = `${train.origin.name.en} → ${train.destination.name.en} | Off Day: ${train.offDay.en || 'None'}`;
+            
+            // Build Stoppages Timeline
+            const timelineHtml = train.stoppages.map((stop, idx) => {
+                const st = stationsMap.get(stop.stationCode);
+                const stName = st ? st.name.en : stop.stationCode;
+                const haltStr = stop.haltMinutes > 0 ? `Halt: ${stop.haltMinutes}m` : 'End Station';
+                const isOrigin = idx === 0;
+                
+                return `
+                    <div class="relative mb-6 last:mb-0 bg-slate-50 p-4 rounded-xl border border-slate-100 shadow-sm">
+                        <!-- Timeline Dot -->
+                        <div class="absolute -left-[35px] top-5 w-[14px] h-[14px] rounded-full bg-white border-[3px] ${isOrigin ? 'border-blue-500' : 'border-brand-500'}"></div>
+                        
+                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-3">
+                            <div class="font-bold text-slate-800 text-lg">${stName}</div>
+                            <div class="text-sm font-medium text-slate-600 bg-white px-3 py-1.5 rounded-lg border border-slate-200 shadow-sm flex gap-3">
+                                <span>Arr: <strong class="text-slate-900">${stop.arrivalTime}</strong></span>
+                                <span class="text-slate-300">|</span>
+                                <span>Dep: <strong class="text-slate-900">${stop.departureTime}</strong></span>
                             </div>
-                            <div class="meta-item">
-                                <span class="meta-label">Stops</span>
-                                <span class="meta-value">${totalStops}</span>
-                            </div>
-                            <div class="meta-item">
-                                <span class="meta-label">Off Day</span>
-                                <span class="meta-value">${train.offDay.en || 'None'}</span>
-                            </div>
+                        </div>
+                        
+                        <div class="flex gap-5 text-sm font-medium text-slate-500">
+                            <span class="flex items-center gap-1.5">
+                                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg> 
+                                ${stop.distanceKm} km
+                            </span>
+                            <span class="flex items-center gap-1.5">
+                                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> 
+                                ${haltStr}
+                            </span>
                         </div>
                     </div>
                 `;
-                
-                // Staggered animation effect
-                card.style.animationDelay = \`\${idx * 0.05}s\`;
-                grid.appendChild(card);
-            });
-        }
-
-        function openModal(train) {
-            document.getElementById('modalTitle').textContent = \`\${train.name.en} (#\${train.code})\`;
-            document.getElementById('modalSubtitle').textContent = \`\${train.origin.name.en} → \${train.destination.name.en} | Off Day: \${train.offDay.en || 'None'}\`;
-            
-            // Build Timeline
-            const timeline = document.getElementById('modalTimeline');
-            timeline.innerHTML = train.stoppages.map(stop => {
-                const st = stationsMap.get(stop.stationCode);
-                const stName = st ? st.name.en : stop.stationCode;
-                const haltStr = stop.haltMinutes > 0 ? \`Halt: \${stop.haltMinutes}m\` : 'Origin/Dest';
-                
-                return \`
-                    <div class="stop-item">
-                        <div class="stop-header">
-                            <div class="stop-name">\${stName}</div>
-                            <div class="stop-times">Arr: \${stop.arrivalTime} | Dep: \${stop.departureTime}</div>
-                        </div>
-                        <div class="stop-meta">
-                            <span>Dist: \${stop.distanceKm} km</span>
-                            <span>\${haltStr}</span>
-                        </div>
-                    </div>
-                \`;
             }).join('');
+            
+            document.getElementById('modalTimeline').innerHTML = timelineHtml;
             
             // Build Fares Table
             const faresContainer = document.getElementById('modalFares');
             if (train.fares && Object.keys(train.fares).length > 0) {
                 const fareStations = Object.keys(train.fares);
                 
-                let tableHtml = \`
-                    <table class="fares-table">
-                        <thead>
-                            <tr>
-                                <th>Destination</th>
-                                \${train.classes.map(c => \`<th>\${formatClass(c)}</th>\`).join('')}
-                            </tr>
-                        </thead>
-                        <tbody>
-                \`;
+                const ths = train.classes.map(c => 
+                    `<th class="px-5 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider border-b-2 border-slate-200 bg-slate-50 whitespace-nowrap">${formatClass(c)}</th>`
+                ).join('');
                 
-                fareStations.forEach(code => {
+                const trs = fareStations.map(code => {
                     const st = stationsMap.get(code);
                     const stName = st ? st.name.en : code;
                     const fareObj = train.fares[code];
                     
-                    tableHtml += \`<tr>
-                        <td style="font-weight: 500;">\${stName}</td>
-                        \${train.classes.map(c => \`<td>৳\${fareObj[c] || '-'}</td>\`).join('')}
-                    </tr>\`;
-                });
+                    const tds = train.classes.map(c => 
+                        `<td class="px-5 py-4 text-sm text-slate-600 border-b border-slate-100 font-medium whitespace-nowrap">
+                            ${fareObj[c] ? '৳' + fareObj[c] : '<span class="text-slate-300">-</span>'}
+                        </td>`
+                    ).join('');
+                    
+                    return `<tr class="hover:bg-brand-50 transition-colors"><td class="px-5 py-4 text-sm font-bold text-slate-800 border-b border-slate-100 whitespace-nowrap">${stName}</td>${tds}</tr>`;
+                }).join('');
                 
-                tableHtml += \`</tbody></table>\`;
-                faresContainer.innerHTML = tableHtml;
+                faresContainer.innerHTML = `
+                    <table class="w-full text-left border-collapse">
+                        <thead><tr><th class="px-5 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider border-b-2 border-slate-200 bg-slate-50 whitespace-nowrap">Destination</th>${ths}</tr></thead>
+                        <tbody class="bg-white">${trs}</tbody>
+                    </table>
+                `;
             } else {
-                faresContainer.innerHTML = \`<p style="color: var(--text-muted); font-style: italic;">Detailed fare information not available for this train.</p>\`;
+                faresContainer.innerHTML = `<div class="p-8 text-center text-slate-500 font-medium bg-slate-50">Detailed fare information is not available for this route.</div>`;
             }
             
-            document.getElementById('trainModal').classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            // Show modal
+            const modal = document.getElementById('trainModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-95');
+            document.body.style.overflow = 'hidden';
         }
 
+        // Modal closer
         function closeModal() {
-            document.getElementById('trainModal').classList.remove('active');
+            const modal = document.getElementById('trainModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modalContent.classList.add('scale-95');
             document.body.style.overflow = '';
         }
 
-        // Run on load
+        // Kickoff
         window.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
