@@ -142,6 +142,15 @@
             return map[cls] || cls;
         };
 
+        const formatTime = (timeStr) => {
+            if (!timeStr) return '';
+            let [h, m] = timeStr.split(':');
+            h = parseInt(h);
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12 || 12;
+            return `${h}:${m} ${ampm}`;
+        };
+
         // Main Initialization
         async function init() {
             try {
@@ -251,11 +260,11 @@
                                 <div class="absolute top-1/2 left-[25%] right-[25%] h-[2px] bg-[repeating-linear-gradient(90deg,var(--tw-colors-slate-200)_0,var(--tw-colors-slate-200)_6px,transparent_6px,transparent_12px)] -z-10"></div>
                                 
                                 <div class="text-center bg-white pr-3">
-                                    <div class="text-xl font-bold text-slate-800">${train.departureTime}</div>
+                                    <div class="text-xl font-bold text-slate-800">${formatTime(train.departureTime)}</div>
                                     <div class="text-sm font-medium text-slate-500 mt-1 max-w-[100px] truncate" title="${train.origin.name.en}">${train.origin.name.en}</div>
                                 </div>
                                 <div class="text-center bg-white pl-3">
-                                    <div class="text-xl font-bold text-slate-800">${train.arrivalTime}</div>
+                                    <div class="text-xl font-bold text-slate-800">${formatTime(train.arrivalTime)}</div>
                                     <div class="text-sm font-medium text-slate-500 mt-1 max-w-[100px] truncate" title="${train.destination.name.en}">${train.destination.name.en}</div>
                                 </div>
                             </div>
@@ -302,9 +311,9 @@
                         <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-3">
                             <div class="font-bold text-slate-800 text-lg">${stName}</div>
                             <div class="text-sm font-medium text-slate-600 bg-white px-3 py-1.5 rounded-lg border border-slate-200 shadow-sm flex gap-3">
-                                <span>Arr: <strong class="text-slate-900">${stop.arrivalTime}</strong></span>
+                                <span>Arr: <strong class="text-slate-900">${formatTime(stop.arrivalTime)}</strong></span>
                                 <span class="text-slate-300">|</span>
-                                <span>Dep: <strong class="text-slate-900">${stop.departureTime}</strong></span>
+                                <span>Dep: <strong class="text-slate-900">${formatTime(stop.departureTime)}</strong></span>
                             </div>
                         </div>
                         
