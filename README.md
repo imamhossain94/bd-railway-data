@@ -1,5 +1,7 @@
 # 🚂 Bangladesh Railway Open Data
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-View_Data-10b981?style=for-the-badge)](https://hussain-ahmed2.github.io/bd-railway-data/)
+
 A structured, machine-readable dataset of **Bangladesh Railway (BR)** intercity train schedules, stoppages, fares, and station information — sourced from the [BR Official Timetable & E-Ticketing 2026](https://eticket.railway.gov.bd/).
 
 > **Last Updated:** 2026-08-07 · **Version:** 2.0.0 · **Authority:** Bangladesh Railway, Ministry of Railways
