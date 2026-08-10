@@ -169,8 +169,4 @@ dhakaToKhulna.forEach(t => {
 
 Data sourced from publicly available Bangladesh Railway official timetables and e-ticketing portal.
 
----
 
-## 🙏 Part of Smart Route BD
-
-This dataset is part of the [Smart Route BD](https://github.com/hussain-ahmed2/smart-route-bd) project — an open-source public transit information platform for Bangladesh.
